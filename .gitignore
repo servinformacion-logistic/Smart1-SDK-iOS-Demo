@@ -1,0 +1,31 @@
+# Xcode - User data
+xcuserdata/
+*.xcuserstate
+*.xcuserdatad/
+
+# Xcode - Build products
+build/
+DerivedData/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# macOS
+.DS_Store
+
+# Swift Package Manager
+.swiftpm/
+.build/
+
+# CocoaPods
+Pods/
+*.podspec
+
+# Carthage
+Carthage/Build/
+
+# General
+*.swp
+*~
+.idea/
+Secrets.swift
