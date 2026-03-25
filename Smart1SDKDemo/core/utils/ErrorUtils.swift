@@ -61,8 +61,10 @@ class ErrorUtils {
         case let sdkError as SdkInitConfigError:
             switch sdkError {
             case .notFound:
+                StartSDKUtils().startSDK()
                 return "There is no SDK configuration found"
             case .sdkApiKeyNotFound:
+                StartSDKUtils().startSDK()
                 return "There is no SDK API key found"
             case .unknown(let cause):
                 return "Unknown error when initializing SDK - \(cause)"

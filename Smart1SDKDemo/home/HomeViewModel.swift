@@ -41,8 +41,12 @@ extension HomeScreen {
                 Task {
                     state.isTrackerEnabled = !isTrackerRunning
                     if isTrackerRunning {
+                        Task {
+                            await LogoutAndFinishSession().execute()
+                        }
                         eventSubject.send(.stopTracker)
                     } else {
+                        StartSDKUtils().startSDK()
                         eventSubject.send(.startTracker)
                     }
                 }
