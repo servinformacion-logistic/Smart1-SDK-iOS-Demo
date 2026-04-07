@@ -372,6 +372,18 @@ extension HomeScreen {
                     }
                     return orderItem
                 }
+                if let previousSelectedOrder = state.selectedOrder {
+                    let updatedOrder = OrderContainer(
+                        order    : Order(
+                            id      : previousSelectedOrder.order.id,
+                            routeId : previousSelectedOrder.order.routeId,
+                            state   : .inProgress
+                        ),
+                        schedule : previousSelectedOrder.schedule,
+                        route    : previousSelectedOrder.route
+                    )
+                    state.selectedOrder = updatedOrder
+                }
                 state.isLoading = false
                 state.currentLoadingMsg = nil
                 
