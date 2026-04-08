@@ -9,6 +9,7 @@ import Smart1SDK_iOS
 
 enum HomeEvent {
     case startTracker
+    case notifyNewOrderInProgressToTracker
     case stopTracker
     case goToAppSettings
     case openCloseOrderPicker(

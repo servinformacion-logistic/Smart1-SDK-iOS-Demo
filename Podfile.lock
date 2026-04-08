@@ -1,14 +1,14 @@
 PODS:
-  - GoogleMaps (10.6.0):
-    - GoogleMaps/Maps (= 10.6.0)
-  - GoogleMaps/Maps (10.6.0)
+  - GoogleMaps (10.12.0):
+    - GoogleMaps/Maps (= 10.12.0)
+  - GoogleMaps/Maps (10.12.0)
   - Runtime (2.2.7)
-  - Smart1SDK (0.0.1):
+  - Smart1SDK (0.0.2):
     - Runtime (~> 2.2.7)
 
 DEPENDENCIES:
   - GoogleMaps
-  - Smart1SDK (~> 0.0.1)
+  - Smart1SDK (~> 0.0.2)
 
 SPEC REPOS:
   https://git.sitimapa.co/smart1/smart1-ios-distribution.git:
@@ -18,10 +18,10 @@ SPEC REPOS:
     - Runtime
 
 SPEC CHECKSUMS:
-  GoogleMaps: fb04793688b21f2450a928652f4685a86270a48d
+  GoogleMaps: 52bbc0302f08e6d8bafb818c331b36f75875bc10
   Runtime: b31390b08874d04349c05719e264f9837cc66b7b
-  Smart1SDK: 6e00fc6d6d5d03affe059975ddb90897300bb68c
+  Smart1SDK: 8d54d1081beaf1ad6c0084f0ad384592eb2e7c99
 
-PODFILE CHECKSUM: d8919d90926ecce1f1bf281fd348d3fe1d6f5995
+PODFILE CHECKSUM: 6da17ec09e9d8adc36a5615d6498d9ba463a311a
 
 COCOAPODS: 1.16.2

@@ -8,6 +8,7 @@
 import Foundation
 import Smart1SDK_iOS
 import CoreLocation
+import Combine
 
 class TrackerDemo : Smart1TrackerDataProvider {
     private let locationManager : LocationManager = LocationManager()
@@ -15,11 +16,17 @@ class TrackerDemo : Smart1TrackerDataProvider {
     private var currentLocation : CoordinatesData? = nil
     private var isRunning       : Bool = false
     
+    private let onGettingInOrOutPortEventSubject = PassthroughSubject<(portId: Int, type: String), Never>()
+    var onGettingInOrOutPortEventPublisher: AnyPublisher<(portId: Int, type: String), Never> {
+        onGettingInOrOutPortEventSubject.eraseToAnyPublisher()
+    }
+    
     
     init(
         autoStart : Bool = false
     ) {
         locationManager.onLocationUpdate = { [weak self] location in
+            print("Last location on Tracker: \(location.coordinate.latitude), \(location.coordinate.longitude)")
             self?.currentLocation = CoordinatesData(
                 latitude  : location.coordinate.latitude,
                 longitude : location.coordinate.longitude
@@ -34,6 +41,10 @@ class TrackerDemo : Smart1TrackerDataProvider {
         guard !isRunning else { return }
         isRunning = true
         startTracking()
+    }
+    
+    func notifyNewOrderInProgress() {
+        Smart1Tracker.notifyNewOrderInProgress()
     }
 
     func stop() {
@@ -67,6 +78,7 @@ class TrackerDemo : Smart1TrackerDataProvider {
                 *  Implement a single source of truth pattern using a local database.
                 *  When port events trigger data updates, update this centralized store and let reactive observers (e.g., Flow collectors, LiveData) automatically propagate changes to all UI components.
                 * */
+                self.onGettingInOrOutPortEventSubject.send((portId, "in"))
             },
             onGettingOutPort : { portId in
                 print("Getting out of the port with id \(portId)")
@@ -80,6 +92,7 @@ class TrackerDemo : Smart1TrackerDataProvider {
                 *  Implement a single source of truth pattern using a local database.
                 *  When port events trigger data updates, update this centralized store and let reactive observers (e.g., Flow collectors, LiveData) automatically propagate changes to all UI components.
                 * */
+                self.onGettingInOrOutPortEventSubject.send((portId, "out"))
             },
             onLog            : { level, processType, message in
                 // Optional: Log tracker events

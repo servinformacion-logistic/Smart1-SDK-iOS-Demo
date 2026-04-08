@@ -10,6 +10,6 @@ target 'Smart1SDKDemo' do
   use_frameworks!
 
   # Pods for Smart1SDKDemo
-  pod 'Smart1SDK', '~> 0.0.1'
+  pod 'Smart1SDK', '~> 0.0.2'
   pod 'GoogleMaps'
 end

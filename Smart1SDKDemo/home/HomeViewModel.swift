@@ -333,12 +333,17 @@ extension HomeScreen {
                     )
                 )
             }
-            
-            if state.selectedOrder != nil {
-                state.selectedOrder = nil
-                state.polylineCoordinates = []
-                state.ports = []
-                try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 sec
+            let lastSelectedOrder = state.selectedOrder
+            if lastSelectedOrder != nil {
+                let lastDataOfSelectedOrder = ordersWithRelatedData.first(where: { $0.order.id == lastSelectedOrder!.order.id })
+                if let nonNullLastDataOfSelectedOrder = lastDataOfSelectedOrder {
+                    await handleOrderSelected(order: nonNullLastDataOfSelectedOrder)
+                } else {
+                    state.selectedOrder = nil
+                    state.polylineCoordinates = []
+                    state.ports = []
+                    try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 sec
+                }
             }
             
             state.isLoading = false
@@ -357,6 +362,7 @@ extension HomeScreen {
             
             switch result {
             case .success:
+                eventSubject.send(.notifyNewOrderInProgressToTracker)
                 state.orders = state.orders.map { orderItem in
                     if orderItem.order.id == order.order.id {
                         let updatedOrder = OrderContainer(
@@ -386,7 +392,6 @@ extension HomeScreen {
                 }
                 state.isLoading = false
                 state.currentLoadingMsg = nil
-                
             case .failure(let error):
                 state.isLoading = false
                 state.currentLoadingMsg = nil

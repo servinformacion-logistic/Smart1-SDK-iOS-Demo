@@ -120,10 +120,13 @@ struct HomeScreen: View {
                 }
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity).onReceive(viewModel.events) { event in
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onReceive(viewModel.events) { event in
                 switch event {
                 case .startTracker:
                     TrackerDemoSt.start()
+                case .notifyNewOrderInProgressToTracker:
+                    TrackerDemoSt.notifyNewOrderInProgress()
                 case .stopTracker:
                     TrackerDemoSt.stop()
                 case .goToAppSettings:
@@ -150,7 +153,9 @@ struct HomeScreen: View {
                     message = "\(error)"
                     showMessage.toggle()
                 }
-            }.alert(
+        }.onReceive(TrackerDemoSt.onGettingInOrOutPortEventPublisher) { _ in
+            viewModel.onAction(.onRefreshClicked)
+        }.alert(
                 isPresented: $showMessage
             ) {
                 Alert(
