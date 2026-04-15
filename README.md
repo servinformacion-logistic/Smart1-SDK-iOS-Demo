@@ -34,7 +34,7 @@ Before running this project, you need:
 
 **Note:** Contact Smart1 administration to obtain the repository credentials and SDK API key.
 
-For complete SDK documentation, visit: [Smart1 SDK iOS Documentation](https://smart1-sdk-ios-docs-dot-servi-smart1-logistica-dev.uc.r.appspot.com/)
+For complete SDK documentation, visit: [Smart1 SDK iOS Documentation](https://smart1-sdk-ios-docs-dot-servi-smart1-logistica-prd.uc.r.appspot.com/)
 
 ## Setup
 
